@@ -31,7 +31,7 @@ class Environment;
 
 struct ReadBinaryOptions;
 
-Result ReadBinaryInterp(interp::Environment* env,
+wabt::Result ReadBinaryInterp(interp::Environment* env,
                         const void* data,
                         size_t size,
                         const ReadBinaryOptions& options,

@@ -25,7 +25,7 @@ option(USE_MSAN "Use memory sanitizer" OFF)
 option(USE_LSAN "Use leak sanitizer" OFF)
 option(USE_UBSAN "Use undefined behavior sanitizer" OFF)
 option(CODE_COVERAGE "Build with code coverage enabled" OFF)
-option(WITH_EXCEPTIONS "Build with exceptions enabled" OFF)
+option(WITH_EXCEPTIONS "Build with exceptions enabled" ON)
 option(WERROR "Build with warnings as errors" OFF)
 
 if (${CMAKE_C_COMPILER_ID} STREQUAL "Clang")
@@ -99,7 +99,7 @@ else ()
     -Wuninitialized
   )
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wold-style-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
   if (WERROR)
     add_definitions(-Werror)
@@ -291,7 +291,7 @@ if (NOT EMSCRIPTEN)
     add_executable(${EXE_NAME} ${EXE_SOURCES})
     add_dependencies(everything ${EXE_NAME})
     target_link_libraries(${EXE_NAME} ${EXE_LIBS})
-    set_property(TARGET ${EXE_NAME} PROPERTY CXX_STANDARD 11)
+    set_property(TARGET ${EXE_NAME} PROPERTY CXX_STANDARD 14)
     set_property(TARGET ${EXE_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
 
     if (EXE_INSTALL)
@@ -383,6 +383,13 @@ if (NOT EMSCRIPTEN)
     wabt_executable(
       NAME wasm-strip
       SOURCES src/tools/wasm-strip.cc
+      INSTALL
+    )
+
+    # wasm-runner
+    wabt_executable(
+      NAME wasm-runner
+      SOURCES runner/main.cc runner/runtime.cc runner/intrinsic-register.cc
       INSTALL
     )
   endif ()
