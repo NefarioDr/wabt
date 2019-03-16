@@ -38,7 +38,7 @@ Wabt has been compiled to JavaScript via emscripten. Some of the functionality i
 Clone as normal, but don't forget to get the submodules as well:
 
 ```console
-$ git clone --recursive https://github.com/WebAssembly/wabt
+$ git clone --recursive https://github.com/NefarioDr/wabt.git
 $ cd wabt
 ```
 
